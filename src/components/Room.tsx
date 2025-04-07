@@ -51,9 +51,9 @@ export const Room = ({
     const [socket, setSocket] = useState<null | Socket>(null);
     const [sendingPc, setSendingPc] = useState<null | RTCPeerConnection>(null);
     const [receivingPc, setReceivingPc] = useState<null | RTCPeerConnection>(null);
-    const [remoteVideoTrack, setRemoteVideoTrack] = useState<MediaStreamTrack | null>(null);
-    const [remoteAudioTrack, setRemoteAudioTrack] = useState<MediaStreamTrack | null>(null);
-    const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream | null>(null);
+    // const [remoteVideoTrack, setRemoteVideoTrack] = useState<MediaStreamTrack | null>(null);
+    // const [remoteAudioTrack, setRemoteAudioTrack] = useState<MediaStreamTrack | null>(null);
+    // const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream | null>(null);
     const [isAudioEnabled, setIsAudioEnabled] = useState(initialAudioEnabled);
     const [isVideoEnabled, setIsVideoEnabled] = useState(initialVideoEnabled);
     const [roomId, setRoomId] = useState<string | null>(null);
@@ -134,7 +134,7 @@ export const Room = ({
                 remoteVideoRef.current.srcObject = stream;
             }
 
-            setRemoteMediaStream(stream);
+            // setRemoteMediaStream(stream);
             setReceivingPc(pc);
 
             pc.ontrack = (e) => {
@@ -161,11 +161,11 @@ export const Room = ({
                     const track1 = transceivers[0].receiver.track;
                     const track2 = transceivers[1].receiver.track;
                     if (track1.kind === "video") {
-                        setRemoteVideoTrack(track1);
-                        setRemoteAudioTrack(track2);
+                        // setRemoteVideoTrack(track1);
+                        // setRemoteAudioTrack(track2);
                     } else {
-                        setRemoteVideoTrack(track2);
-                        setRemoteAudioTrack(track1);
+                        // setRemoteVideoTrack(track2);
+                        // setRemoteAudioTrack(track1);
                     }
                     if (remoteVideoRef.current?.srcObject instanceof MediaStream) {
                         remoteVideoRef.current.srcObject.addTrack(track1);
@@ -176,7 +176,7 @@ export const Room = ({
             }, 5000);
         });
 
-        socket.on("answer", ({ roomId, sdp: remoteSdp }) => {
+        socket.on("answer", ({ sdp: remoteSdp }) => {
             setLobby(false);
             setSendingPc(pc => {
                 pc?.setRemoteDescription(remoteSdp);
@@ -290,9 +290,9 @@ export const Room = ({
         if (remoteVideoRef.current) {
             remoteVideoRef.current.srcObject = null;
         }
-        setRemoteVideoTrack(null);
-        setRemoteAudioTrack(null);
-        setRemoteMediaStream(null);
+        // setRemoteVideoTrack(null);
+        // setRemoteAudioTrack(null);
+        // setRemoteMediaStream(null);
         setRoomId(null);
         setChatMessages([]);
     };
