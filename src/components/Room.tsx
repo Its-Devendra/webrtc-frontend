@@ -393,7 +393,7 @@ export const Room = ({
                         className="toggle-chat-button"
                         onClick={() => setIsChatOpen(!isChatOpen)}
                     >
-                        {isChatOpen ? '×' : 'Chat'}
+                        
                     </button>
                 </div>
                 <div className="chat-messages" ref={chatContainerRef}>
